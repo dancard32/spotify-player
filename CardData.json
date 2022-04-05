@@ -1,0 +1,12 @@
+{
+    "1234":{
+        "name":"Test 1",
+        "url":"spotify:track:2vSLxBSZoK0eha4AuhZlXV",
+        "type": "Track"
+    },
+    "5678":{
+        "name":"Test 2",
+        "url":"spotify:track:2vSLxBSZoK0eha4AuhZlXV",
+        "type": "Track"
+    }
+}

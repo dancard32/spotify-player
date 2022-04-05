@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# spotify-player
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+This project is intended to expand an option on the google maps "Directions" functionality to provide a more sight-seeing experience for integration on road trips for a more immersive UX. This project was written in Python, and I am currently working to expand it to a static *github.io pages* website with a Flask back-end React front-end. 
 
-## Available Scripts
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
 
-In the project directory, you can run:
+## Installation
+Two installations are needed to run this locally
 
-### `npm start`
+In order to run *main.py* [Python Client for Google Maps Services](https://pypi.org/project/googlemaps/) needs to be locally installed
+```
+pip install -U googlemaps
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To plot and export *.html* data [A matplotlib-like interface to plot data with Google Maps](https://pypi.org/project/gmplot/) needs to be installed
+```
+pip install gmplot
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Usage
+### API Key
+I've IP restricted this API key to my personal computer, so if you would like to run this on your own local machine, *git clone* this repository and create a Google Cloud Platform project. This will be the project needed to get the api key. The Google Maps APIs you will need are:
+* Directions API
+* Geocoding API
+* Maps JavaScript API
+* Maps Static API
+* Places API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+After obtaining the API key replace the placeholder API key in *main.py*
+### Checking Tourist Routes
+If this is being ran locally, the results will be exported to *(root)/map.html*. To allow automatic refreshing use [Live-Server](https://github.com/ritwickdey/vscode-live-server) to open the *map.html* on a localhost that automatically updates every time the *main.py* is ran.
+![Live Server](assets/liveServer.png)
 
-### `npm run build`
+<br />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Example:** From University of Southern California to Griffith Observatory, the localhost *map.html* will look something like this
+![LocalHost HTML](assets/liveHTML.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+## License
+Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) prohibits the use of this for commercialization, but allows downloading editing/sharing amongst the community. If there is a request to commercialize, contact me personally via email at [dcard@umich.edu](mailto:dcard@umich.edu)
