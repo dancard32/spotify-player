@@ -7,9 +7,9 @@ import json
 from time import sleep
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """ Globally loaded constants """
-DEVICE_ID="YOUR_DEVICE_ID"
-CLIENT_ID="YOUR_CLIENT_ID"
-CLIENT_SECRET="YOUR_CLIENT_SECRET"
+DEVICE_ID="98bb0735e28656bac098d927d410c3138a4b5bca"
+CLIENT_ID="96f4682ca85249e1874469dc3f310350"
+CLIENT_SECRET="ca32c3e6ada2423485a28945d92d6f5b"
 
 fid = open('CardData.json')
 TrackData = json.load(fid)
@@ -30,6 +30,7 @@ while True:
                 client_secret=CLIENT_SECRET,
                 redirect_uri="http://localhost:8080",
                 scope="user-read-playback-state,user-modify-playback-state"))
+        
 
         """ Loop to read in RFID Card's """
         while True:
@@ -38,11 +39,20 @@ while True:
             print(f"Card Value is: {id}")
             sp.transfer_playback(device_id=DEVICE_ID, force_play=False)
             
+            
             if id:
                 url, name, type = parseRFID(id)
-                
+
+            if type == "Track":
                 print(f"Playing {type}: {name}")
-                sp.start_playback(device_id=DEVICE_ID, uris=url)
+                sp.start_playback(device_id=DEVICE_ID, uris=[url])
+                sleep(1)
+
+            elif type == "Playlist" or type == "Album":
+                print(f"Playing {type}: {name}")
+                sp.start_playback(device_id=DEVICE_ID, context_uri=url)
+                sp.shuffle(True, device_id=DEVICE_ID)
+                sp.next_track()
                 sleep(1)
 
     except Exception as e:

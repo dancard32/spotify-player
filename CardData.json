@@ -1,11 +1,51 @@
 {
-    "1234":{
-        "name":"Test 1",
+    "969223874259":{
+        "name":"hammock vibz",
+        "url":"spotify:playlist:1LxEqGRyNV5yB67e6mwGgH",
+        "type": "Playlist"
+    },
+    "8006772295":{
+        "name":"Rap",
+        "url":"spotify:playlist:55zbWF10EkSA09Xj4i74EP",
+        "type": "Playlist"
+    },
+    "416833971959":{
+        "name":"lofi hip hop music",
+        "url":"spotify:playlist:0vvXsWCC9xrXsKd4FyS8kM",
+        "type": "Playlist"
+    },
+    "555279492690":{
+        "name":"spikeball w the boys",
+        "url":"spotify:playlist:6z9cAwoAObYUgpvCMrjNrj",
+        "type": "Playlist"
+    },
+    "145648231969":{
+        "name":"Country",
+        "url":"spotify:playlist:3HE3Zq1Oy58UxZ8nXRyMot",
+        "type": "Playlist"
+    },
+    "692684891772":{
+        "name":"Test 6",
         "url":"spotify:track:2vSLxBSZoK0eha4AuhZlXV",
         "type": "Track"
     },
-    "5678":{
-        "name":"Test 2",
+    "554239370769":{
+        "name":"Test 7",
+        "url":"spotify:track:2vSLxBSZoK0eha4AuhZlXV",
+        "type": "Track"
+    },
+    "145412171361":{
+        "name":"Test 8",
+        "url":"spotify:track:2vSLxBSZoK0eha4AuhZlXV",
+        "type": "Track"
+    },
+    "969190319825":{
+        "name":"Test 9",
+        "url":"spotify:track:2vSLxBSZoK0eha4AuhZlXV",
+        "type": "Track"
+    },
+    "762293757524":{
+        "name":"Test 10",
         "url":"spotify:track:2vSLxBSZoK0eha4AuhZlXV",
         "type": "Track"
     }
