@@ -1,11 +1,9 @@
-#!/usr/bin/env python
 from time import sleep
 from mfrc522 import SimpleMFRC522
 import RPi.GPIO as GPIO
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import json
-#sleep(100)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """ Globally loaded constants """
 DEVICE_ID="98bb0735e28656bac098d927d410c3138a4b5bca"
@@ -102,5 +100,3 @@ while True:
         print("Cleaning up GPIO...")
         GPIO.cleanup()
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#if __name__ == "__main__":
-    #main()
