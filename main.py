@@ -1,10 +1,11 @@
 #!/usr/bin/env python
+from time import sleep
 from mfrc522 import SimpleMFRC522
 import RPi.GPIO as GPIO
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import json
-from time import sleep
+#sleep(100)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """ Globally loaded constants """
 DEVICE_ID="98bb0735e28656bac098d927d410c3138a4b5bca"
@@ -23,6 +24,9 @@ def parseRFID(id):
 
     return url, name, type
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def printInfo(data):
+    print(f"Playing {data['item']['name']} by {data['item']['artists'][0]['name']}")
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def pausePlayTrack(channel):
     global PLAY_PAUSE
     
@@ -34,19 +38,19 @@ def pausePlayTrack(channel):
         sp.start_playback(device_id=DEVICE_ID)
         PLAY_PAUSE = True
         info = sp.currently_playing()
-        print(f"Playing {info['item']['name']} by {info['item']['artists'][0]['name']}")
+        printInfo(info)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def skipTrack(channel):
     print("Skip track")
     sp.next_track(device_id=DEVICE_ID)
     info = sp.currently_playing()
-    print(f"Playing {info['item']['name']} by {info['item']['artists'][0]['name']}")
+    printInfo(info)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def backTrack(channel):
     print("Prior track")
     sp.previous_track(device_id=DEVICE_ID)
     info = sp.currently_playing()
-    print(f"Playing {info['item']['name']} by {info['item']['artists'][0]['name']}")
+    printInfo(info)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -56,7 +60,7 @@ GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(13 , GPIO.RISING, callback=skipTrack)
 GPIO.setup(15, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(15, GPIO.RISING, callback=backTrack)
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """ Main loop on start up """
 while True:
     try:
@@ -73,16 +77,14 @@ while True:
             print(f"Card Value is: {id}")
             sp.transfer_playback(device_id=DEVICE_ID, force_play=False)
             
-            
             if id:
                 url, name, type = parseRFID(id)
-
             if type == "Track":
                 print(f"Playing {type}: {name}")
                 sp.start_playback(device_id=DEVICE_ID, uris=[url])
                 sleep(1)
                 info = sp.currently_playing()
-                print(f"Playing {info['item']['name']} by {info['item']['artists'][0]['name']}")
+                printInfo(info)
             elif type == "Playlist" or type == "Album":
                 print(f"Playing {type}: {name}")
                 sp.start_playback(device_id=DEVICE_ID, context_uri=url)
@@ -90,11 +92,15 @@ while True:
                 sp.next_track()
                 sleep(1)
                 info = sp.currently_playing()
-                print(f"Playing {info['item']['name']} by {info['item']['artists'][0]['name']}")
+                printInfo(info)
+                
     except Exception as e:
         print(e)
         pass
+    
     finally:
         print("Cleaning up GPIO...")
         GPIO.cleanup()
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#if __name__ == "__main__":
+    #main()
