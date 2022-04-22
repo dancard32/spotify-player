@@ -11,9 +11,11 @@ Ths project employs the [spotipy](https://spotipy.readthedocs.io/en/2.19.0/) Pyt
     - [RFID Card Reader](#rfid-card-reader)
     - [Miscellaneous Parts](#miscellaneous-parts)
 - [Installation and Setup](#installation-and-setup)
-    - [Installing Spotipy](#installing-spotipy)
-    - [Setting up Developer Spotify App](#setting-up-developer-spotify-app)
     - [Initial Set-up](#initial-set-up)
+    - [RC522 Card Reading](#rc522-card-reading)
+    - [Connecting Raspberry Pi to Spotify](#connecting-raspberry-pi-to-spotify)
+    - [Setting up Developer Spotify API](#setting-up-developer-spotify-api)
+    - [Installing Spotipy](#installing-spotipy)
     - [Adding Playlists/Songs to RFID Cards](#adding-playlistssongs-to-rfid-cards)
     - [Enabling Spotipy Script on Boot](#enabling-spotipy-script-on-boot)
 - [Credits](#credits)
@@ -24,8 +26,9 @@ Ths project employs the [spotipy](https://spotipy.readthedocs.io/en/2.19.0/) Pyt
 Listed below are the bare minimum parts required for a functioning Raspberry Pi RFID Spotify jukebox, with associated links:
 - ### Raspberry Pi
     There are several Raspberry Pi's that can be used, but ultimately depend on the implementation
-    - [Raspberry Pi Zero W](https://www.raspberrypi.com/products/raspberry-pi-zero-w/) Does not ship with an audio jack, so must be used with a bluetooth capable speaker
-    - Any of the following [Raspberry Pi 4 Model B](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/), [Raspberry Pi 3 Model B+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/), [Raspberry Pi 3 Model B](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/)
+    - [Raspberry Pi 4 Model B](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
+    - [Raspberry Pi 3 Model B+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/)
+    - [Raspberry Pi 3 Model B](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/)
 
 - ### RFID Card Reader
     It is best to use a [RC522 RFID](https://medium.com/autonomous-robotics/an-introduction-to-rfid-dc6228767691) due to its supported Python library module
@@ -53,21 +56,79 @@ Raspi-config will open a window, from here select "Interfacing Options" and sele
 ```
 sudo reboot
 ```
-#### Installing Spotipy
+
+### RC522 Card Reading
+To allow the reading of RFID tags, connect the MFRC522 module to the Raspberry Pi via the following pin out schematic
+- **SS pin** connects to **GPIO8 pin**
+- **SCK pin** connects to **GPIO11 pin**
+- **MOSI pin** connects to **GPIO10 pin**
+- **MISO pin** connects to **GPIO9 pin**
+- **IRQ pin** does not connect to anything
+- **GND pin** connects to **GND pin**
+- **RST pin** connects to **GPIO23 pin**
+- **VCC pin** connects to **3.3V Power pin**
+
+Refer to the pins and connections below
+![MFRC522 RFID Card Reader Pin Out](assets/RFID_pins.png)
+Click here for more [RC522 Data](https://components101.com/wireless/rc522-rfid-module)
+
+![Raspberry Pi 3/4 GPIO Pin Outs](assets/RPi_pins.png)
+
+To allow for the RFID reading, install the following dependencies
+```
+sudo apt-get install python3-dev python3-pip
+sudo pip3 install spidev mfrc522
+```
+This will enable the Raspberry Pi to access the GPIO pins and read the HASH ID values from the RFID tags that can be used to link to playlists/albums/tracks later on. With these dependencies installed *readCard.py* should be able to run and will output the HASD ID values.
+
+### Connecting Raspberry Pi to Spotify
+To enable the Raspberry Pi to be a valid connection on Spotify, the [Raspotify - Spotify Connect](https://github.com/dtcooper/raspotify) client will need to be installed - *be sure that all dependencies are met else connect will not work*- to install use the folllowing command
+```
+sudo apt-get -y install curl && curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
+```
+While the Raspberry Pi is on and connected to internet, it should be recognized by Spotify as a valid connection device (analogous to a bluetooth speaker, a separate device, etc). Test functionality by opening Spotify on a phone or laptop and click the **Connect** button and search for "Raspotify" in the options.
+### Setting up Developer Spotify API
+Next step is too allow the Raspberry Pi to interface with Spotify's web API and allow the Raspberry Pi to change music per the RFID values. To allow *spotipy* to integrate with the Spotify web API, API tokens are required, to obtain them do the following:
+
+
+1. Navigate to https://developer.spotify.com/dashboard
+2. Sign in with a Spotify Premium Account
+3. Click "Create an App"
+4. Click on your app
+5. Click on "Edit Settings"
+6. Add the following callback URIs
+```
+http://localhost:8888/callback
+http://localhost:8080 
+```
+7. On the dashboard, write/copy the Client ID and Client Secret, they are needed later
+
+Next is to get the Device ID of the Raspberry Pi, this can be found after connecting the Raspberry Pi via Spotify Connect
+
+1. On a phone or laptop, open Spotify and connect to "Raspotify"
+2. Navigate to https://developer.spotify.com/console/get-users-available-devices/
+3. Click get token
+4. Check all the boxes under "Required Scopes for this endpoint"
+5. Click "Request Token"
+6. Underneath the Get token option, click "Try It" to make an API call and get the list of Spotify devices on your home network
+7. In the json response, find the ID for the Raspotify (Raspberry Pi) device
+8. Write/copy the Device ID
+
+### Installing Spotipy
 Spotipy is a lightweight python library for the Spotify web API, click here for [Spotipy Documentation](https://spotipy.readthedocs.io/en/2.19.0/)
 ```
 pip install spotipy
 ```
-or upgrade
-```
-pip install spotipy --upgrade
-```
-### Setting up Developer Spotify App
+Once that installs, we can start writing our first python program to control Spotify on Raspberry Pi.
 
-
+1. In your main folder, open *parseSpotify.py*
+2. Change the Device ID, Client ID, and Client Secret to the tokens provided by Spotify
+3. Execute this script
+4. A Spotify webpage will open where you have to agree/accept to authenticate. Click agree, this is a one-time setup
+5. Once authenticated, the song in *parseSpotify.py* will start playing through the Raspberry Pi speakers
 
 ### Adding Playlists/Songs to RFID Cards
-Songs/albums/playlists can be added to the *CardData.json* through the following format shown below:
+With everything up to this point being completed, the Raspberry Pi is ready to play music! Change the token values in *main.py* to match the tokens provided to you from Spotify. From here songs/albums/playlists can be added to the *CardData.json* through the following format shown below:
 ```
 {
     "HASH ID #1 FROM RFID CARD":{
@@ -87,10 +148,10 @@ Songs/albums/playlists can be added to the *CardData.json* through the following
     },
 }
 ```
-Where *"type"* can be either *Playlist, Album, or Track* as per the Spotify URL. Obtaining the URL can be done simply by:
+Where *HASH ID* can be found by running the *readCard.py* script and copying/pasting the RFID HASH ID into *CardData.json* and where *"type"* can be either *Playlist, Album, or Track* as per the Spotify URL. Obtaining the URL can be done simply by:
 ![Spotify Song Links](assets/spotifySongLinks.png)
 
-Copying this link gives *https://open.spotify.com/track/4HlFJV71xXKIGcU3kRyttv?si=b945f2f735874dd0* but all that is is needed can be spliced is after the *spotify.com/"type"/* up to the *"?"* such that this track's ID is **4HlFJV71xXKIGcU3kRyttv**. Hence, the value for the card's HASH ID is
+Copying this link gives *https://open.spotify.com/track/4HlFJV71xXKIGcU3kRyttv?si=b945f2f735874dd0* but all that is is needed can be spliced is after the *spotify.com/"type"/* up to the *"?"* such that this track's ID is **4HlFJV71xXKIGcU3kRyttv**. Hence, the value for the card's URL is
 ```
 {
     "name":"Hey, Soul Sister",
@@ -98,12 +159,15 @@ Copying this link gives *https://open.spotify.com/track/4HlFJV71xXKIGcU3kRyttv?s
     "type": "Track"
 }
 ```
-**Note: The type must be correct as album/playlist use a different API call than tracks**
+**Note: The type must be correct as album/playlist use a different API call than track, the name can be left blank**
 
 ### Enabling Spotipy Script on Boot
+Enabling the python script to auto-run on boot can be done by using *crontab* to run a shell script that starts the script on boot. For detailed instructions, refer to [Raspberry Pi Launch Python Script on Startup](https://www.instructables.com/Raspberry-Pi-Launch-Python-script-on-startup/)
+
 ---
 ## Credits
-Thx 
+This repository and project is based upon the work of [talaexe's Sptoify-RFID-Record-Player](https://github.com/talaexe/Spotify-RFID-Record-Player) and expanded upon to allow more features and scalability. 
+
 ## License
 Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) prohibits the use of this for commercialization, but allows downloading editing/sharing amongst the community. If there is a request to commercialize, contact me personally via email at [dcard@umich.edu](mailto:dcard@umich.edu)
 
