@@ -4,11 +4,10 @@ import RPi.GPIO as GPIO
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import json
+from API_Key import API_KEY
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """ Globally loaded constants """
-DEVICE_ID="98bb0735e28656bac098d927d410c3138a4b5bca"
-CLIENT_ID="96f4682ca85249e1874469dc3f310350"
-CLIENT_SECRET="ca32c3e6ada2423485a28945d92d6f5b"
+DEVICE_ID, CLIENT_ID, CLIENT_SECRET = API_KEY()
 PLAY_PAUSE = True # True while playing, False while paused
 
 fid = open('CardData.json')

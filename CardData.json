@@ -26,27 +26,28 @@
     },
     "692684891772":{
         "name":"Late Night Jazz",
-        "url":"spotify:playlist/37i9dQZF1DX4wta20PHgwo",
+        "url":"spotify:playlist:37i9dQZF1DX4wta20PHgwo",
         "type": "Playlist"
     },
     "554239370769":{
         "name":"R&B Mix",
-        "url":"spotify:playlist/37i9dQZF1EQoqCH7BwIYb7",
+        "url":"spotify:playlist:37i9dQZF1EQoqCH7BwIYb7",
         "type": "Playlist"
     },
     "145412171361":{
         "name":"Hip Hop Mix",
-        "url":"spotify:playlist/37i9dQZF1EQnqst5TRi17F",
+        "url":"spotify:playlist:37i9dQZF1EQnqst5TRi17F",
         "type": "Playlist"
     },
     "969190319825":{
         "name":"Rock",
-        "url":"spotify:playlist/37i9dQZF1DWXRqgorJj26U",
+        "url":"spotify:playlist:37i9dQZF1DWXRqgorJj26U",
         "type": "Playlist"
     },
     "762293757524":{
         "name":"All Out 2000s",
-        "url":"spotify:playlist/37i9dQZF1DX4o1oenSJRJd",
+        "url":"spotify:playlist:37i9dQZF1DX4o1oenSJRJd",
         "type": "Playlist"
     }
 }
+
