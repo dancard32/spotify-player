@@ -120,7 +120,7 @@ while True:
             if id: url, name, type = parseRFID(id)
 
             # If track type is selected play the track
-            if type == "Track":
+            if type.lower() == "track":
                 print(f"Playing {type}: {name}")
                 sp.start_playback(device_id=DEVICE_ID, uris=[url])
                 sleep(1)
@@ -128,7 +128,7 @@ while True:
                 printInfo(info)
 
             # With Playlist/Album type use context_uri and enable shuffle
-            elif type == "Playlist" or type == "Album":
+            elif type.lower() == "playlist" or type.lower() == "album":
                 print(f"Playing {type}: {name}")
                 sp.start_playback(device_id=DEVICE_ID, context_uri=url)
                 sp.shuffle(True, device_id=DEVICE_ID)
