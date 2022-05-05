@@ -2,7 +2,7 @@
 
 ![Cover Photo](assets/coverPhoto.png)
 ## Description
-Ths project employs the [spotipy](https://spotipy.readthedocs.io/en/2.19.0/) Python library to interface with the Spotify web application to create a functional RFID Spotify Jukebox. This Github repository will contain the steps towards creating a functional spotify application as well as containing links to the thingiverse repository of the *.stl* files that I 3D printed as well as the Bill of Materials (BOM).
+Ths project employs the [spotipy](https://spotipy.readthedocs.io/en/2.19.0/) Python library to interface with the Spotify web application to create a functional RFID Spotify Jukebox. This Github repository will contain the steps towards creating a functional spotify application as well as containing the *.stl* files that I 3D printed as well as the Bill of Materials (BOM).
 
 ---
 ## Table of Contents
