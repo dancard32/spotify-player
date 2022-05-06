@@ -55,8 +55,8 @@ def genCardPhotos(PullSpotify):
                 url = results["album"]["images"][0]["url"]
 
             # Save the photo locally
-            urllib.request.urlretrieve(url, f"images/cards/cover_art/card_{tmp}.png")
-        img = Image.open(f"images/cards/cover_art/card_{tmp}.png").resize((1500,1500))
+            urllib.request.urlretrieve(url, f"images/cards/cover_art/{tmp}.png")
+        img = Image.open(f"images/cards/cover_art/{tmp}.png").resize((1500,1500))
 
         background.paste(img, (165, 375))
 
@@ -67,7 +67,7 @@ def genCardPhotos(PullSpotify):
         draw.text(((1629-w)/2, 0.05*2896), tmp, fill="black", font=myFont)
         background = background.resize((913, 1448)) # Downsize to fit paper_template
 
-        background.save(f"images/cards/{tmp}.png")
+        background.save(f"images/cards/card_{tmp}.png")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genPaperPrints():
     """
@@ -84,7 +84,7 @@ def genPaperPrints():
     for names in TrackData.values():
         # Obtain the name of the playlist/album/track and open associated image
         tmp = names["name"]
-        img = Image.open(f"images/cards/{tmp}.png").rotate(90, expand=True)
+        img = Image.open(f"images/cards/card_{tmp}.png").rotate(90, expand=True)
         
         # Reset counter
         if i == 2: i = 0; j += 1

@@ -31,12 +31,19 @@ Listed below are the bare minimum parts required for a functioning Raspberry Pi 
     - [Raspberry Pi 3 Model B](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/)
 
 - ### RFID Card Reader
-    It is best to use a [RC522 RFID](https://medium.com/autonomous-robotics/an-introduction-to-rfid-dc6228767691) due to its supported Python library module
+    It is best to use a [RC522 RFID](https://medium.com/autonomous-robotics/an-introduction-to-rfid-dc6228767691) due to its supported Python library module. You can pick one up [here](https://www.amazon.com/dp/B07VLDSYRW?psc=1&ref=ppx_yo2ov_dt_b_product_details).
 
 - ### Miscellaneous Parts
     - **Speaker**: in this build I used a [JBL Flip 3](https://www.amazon.com/JBL-FLIP3-Bluetooth-Speaker-Black/dp/B010RWAIAC) that I purchased on a Black Friday Deal for $30, any speaker will suffice - edits to the 3D prints will be needed with a different speaker configuration
     - **Button**: to skip tracks, play/pause tracks I used [Tactile Push Button Switch](https://www.amazon.com/QTEATAK-Momentary-Tactile-Button-Switch/dp/B07VSNN9S2/ref=asc_df_B07VSNN9S2/?tag=hyprod-20&linkCode=df0&hvadid=416673008856&hvpos=&hvnetw=g&hvrand=4635310657359385198&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9029679&hvtargid=pla-898093476441&psc=1&tag=&ref=&adgrpid=95471650978&hvpone=&hvptwo=&hvadid=416673008856&hvpos=&hvnetw=g&hvrand=4635310657359385198&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9029679&hvtargid=pla-898093476441) or a suitable alternative
     - **Audio Jack Splitter**: To allow external speaker player I got this audio jack that will mount into the 3D printed frame [Audio Jack Splitter](https://www.amazon.com/Kingtop-Adapter-Tablet-Headsets-Version/dp/B01I3A47I4/ref=sr_1_1_sspa?keywords=audio%2Bjack%2Bsplitter&qid=1650606648&sr=8-1-spons&smid=A30K982V62WUOW&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzUVg5UDM3OEw0VkVBJmVuY3J5cHRlZElkPUEwMjAyMDU1Mkw5R1RLRDdDWk1GTyZlbmNyeXB0ZWRBZElkPUEwOTA3MjkyNDJVV0NJWDhVOVFQJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ&th=1)
+    - **RFID Tags**: Link [here](https://www.amazon.com/dp/B01LZYOR7P?psc=1&ref=ppx_yo2ov_dt_b_product_details)
+    - **Blank Cards**: Link [here](https://www.amazon.com/dp/B07193KG7G?ref=ppx_yo2ov_dt_b_product_details&th=1)
+    - **Threaded inserts**: Link [here](https://www.amazon.com/dp/B08Z86Z85R?psc=1&ref=ppx_yo2ov_dt_b_product_details)
+    - **Dupont Connectors**: Link [here](https://www.amazon.com/dp/B089FZ79CS?psc=1&ref=ppx_yo2ov_dt_b_product_details)
+    - **Protoboard**: Link [here](https://www.amazon.com/dp/B07FFDFLZ3?psc=1&ref=ppx_yo2ov_dt_b_product_details)
+    - **Rubber Standoffs**: Link [here](https://www.amazon.com/dp/B08C373VBW?psc=1&ref=ppx_yo2ov_dt_b_product_details)
+    - **Raspberry Pi PS Cable**: Link [here](https://www.amazon.com/dp/B01N336XEU?psc=1&ref=ppx_yo2ov_dt_b_product_details)
 
 
 ---
@@ -165,8 +172,17 @@ Copying this link gives *https://open.spotify.com/track/4HlFJV71xXKIGcU3kRyttv?s
 Enabling the python script to auto-run on boot can be done by using *crontab* to run a shell script that starts the script on boot. For detailed instructions, refer to [Raspberry Pi Launch Python Script on Startup](https://www.instructables.com/Raspberry-Pi-Launch-Python-script-on-startup/)
 
 ---
+## Printing Album Art
+Included in this repository is the *genPhotos.py* file that will automatically generate the album art to be printed, cut out and pasted onto a blank card to pose as a modern record. All that is required is enabling the *boolean* to automatically pull the album art from Spotify - else you'll have to manually populate the album cover art folder with photos of your choice.
+
+
+
+
+## 3D Printing Jukebox
+
+---
 ## Credits
-This repository and project is based upon the work of [talaexe's Sptoify-RFID-Record-Player](https://github.com/talaexe/Spotify-RFID-Record-Player) and expanded upon to allow more features and scalability. 
+This repository and project is based upon the work of [talaexe's Sptoify-RFID-Record-Player](https://github.com/talaexe/Spotify-RFID-Record-Player) and expanded upon to allow more features and scalability. Additionally, this work extensively uses [Spotipy](https://spotipy.readthedocs.io/en/2.19.0/) of which is the Python library that allows Web API calls to Spotify. Finally, this also extensively uses the [Raspotify](https://github.com/dtcooper/raspotify) library to integrate with Raspberry Pi and Spotify to allow music playing.
 
 ## License
 Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) prohibits the use of this for commercialization, but allows downloading editing/sharing amongst the community. If there is a request to commercialize, contact me personally via email at [dcard@umich.edu](mailto:dcard@umich.edu)
