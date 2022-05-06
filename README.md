@@ -1,8 +1,8 @@
 # Raspberry Pi - RFID Spotify Jukebox
 
-![Cover Photo](assets/coverPhoto.png)
+![Cover Photo](assets/3D_Render.PNG)
 ## Description
-Ths project employs the [spotipy](https://spotipy.readthedocs.io/en/2.19.0/) Python library to interface with the Spotify web application to create a functional RFID Spotify Jukebox. This Github repository will contain the steps towards creating a functional spotify application as well as containing the *.stl* files that I 3D printed as well as the Bill of Materials (BOM).
+Ths project employs the [spotipy](https://spotipy.readthedocs.io/en/2.19.0/) Python library to interface with the Spotify web application to create a functional RFID Spotify Jukebox. This Github repository will contain the steps towards creating a functional spotify application as well as containing links to the thingiverse repository of the *.stl* files that I 3D printed as well as the Bill of Materials (BOM).
 
 ---
 ## Table of Contents
@@ -18,6 +18,8 @@ Ths project employs the [spotipy](https://spotipy.readthedocs.io/en/2.19.0/) Pyt
     - [Installing Spotipy](#installing-spotipy)
     - [Adding Playlists/Songs to RFID Cards](#adding-playlistssongs-to-rfid-cards)
     - [Enabling Spotipy Script on Boot](#enabling-spotipy-script-on-boot)
+- [Printing Album Art](#printing-album-art)
+- [3D Printing Jukebox](#3d-printing-jukebox)
 - [Credits](#credits)
 - [License](#license)
 
@@ -176,10 +178,25 @@ Enabling the python script to auto-run on boot can be done by using *crontab* to
 Included in this repository is the *genPhotos.py* file that will automatically generate the album art to be printed, cut out and pasted onto a blank card to pose as a modern record. All that is required is enabling the *boolean* to automatically pull the album art from Spotify - else you'll have to manually populate the album cover art folder with photos of your choice.
 
 
+### Custom Art
+To print custom artworks (not the album art from Spotify), place your artwork into the *cover_art* folder shown below with the associated name that can be found in the *CardData.json*
+
+![Image Layout](assets/Image_Layout.png)
 
 
+**Ensure that PullSpotifyData is False if you want custom album art**
+
+![genPhotos.py Boolean](assets/photosBoolean.png)
+
+*genPhotos.py*
 ## 3D Printing Jukebox
+All the 3D printing CAD files can be found under the associated *CAD* folder in this repository. These are in the *.stl* file format to be used during *.gcode* generation. Additionally, the drawing with the bill of materials (BOM) can be found in this folder as well.
 
+![Bill of Materials](assets/DWG.png)
+
+The parts that end in an *-0XX* are those that are printed and not bought locally (exception of the rubber feet if preferred). Additionally, to enable the previous/play & pause/skip track buttons electrically wiring the buttons with soulder will be required. The electrical configuration is as follows.
+
+![Button Electrical Configuration](assets/buttonElectrical.png)
 ---
 ## Credits
 This repository and project is based upon the work of [talaexe's Sptoify-RFID-Record-Player](https://github.com/talaexe/Spotify-RFID-Record-Player) and expanded upon to allow more features and scalability. Additionally, this work extensively uses [Spotipy](https://spotipy.readthedocs.io/en/2.19.0/) of which is the Python library that allows Web API calls to Spotify. Finally, this also extensively uses the [Raspotify](https://github.com/dtcooper/raspotify) library to integrate with Raspberry Pi and Spotify to allow music playing.
