@@ -4,6 +4,8 @@ import spotipy                          # Spotipy's python module
 from spotipy.oauth2 import SpotifyOAuth # Allows authentication of Spotify
 import json                             # Used to input CardData.json
 from API_Key import API_KEY             # Allows constants across scripts
+import random                           # Used for track circle placement
+import numpy as np                      # Used to floor song duration played
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """ Globally loaded constants """
 DEVICE_ID, CLIENT_ID, CLIENT_SECRET = API_KEY()
@@ -64,9 +66,23 @@ def genCardPhotos(PullSpotify):
         draw = ImageDraw.Draw(background)
         myFont = ImageFont.truetype("Arial Bold.ttf", 128)
         w, h = draw.textsize(tmp, font=myFont)
-        draw.text(((1629-w)/2, 0.05*2896), tmp, fill="black", font=myFont)
-        background = background.resize((913, 1448)) # Downsize to fit paper_template
+        draw.text(((1826-w)/2, 0.05*2896), tmp, fill="black", font=myFont)
 
+        # Add random duration slider
+        xloc = random.randint(190, 1620)
+        draw.rounded_rectangle((190, 2244, xloc, 2244), fill="yellow", outline="black",
+                           width=15, radius=3)
+        draw.ellipse((xloc-50, 2244-50, xloc+50, 2244+50), fill="black", outline="black")
+
+        # Add random length of song to card
+        songFont = ImageFont.truetype("Arial Bold.ttf", 64)
+        song_dur = random.randint(70, 360)
+        song_played = (xloc-190)/(1620-190) * song_dur
+        draw.text((200, 2120), f"{song_played/60:1.0f}:{song_played%60:02.0f}", fill="black", font=songFont)
+        draw.text((1500, 2120), f"{song_dur/60:1.0f}:{song_dur%60:02.0f}", fill="black", font=songFont)
+
+        # Downsize to fit paper_template and save
+        background = background.resize((913, 1448))
         background.save(f"images/cards/card_{tmp}.png")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genPaperPrints():
