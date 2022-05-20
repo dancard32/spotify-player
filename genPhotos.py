@@ -6,6 +6,7 @@ import json                             # Used to input CardData.json
 from API_Key import API_KEY             # Allows constants across scripts
 import random                           # Used for track circle placement
 import numpy as np                      # Used to floor song duration played
+import os                               # Used to delete cards
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """ Globally loaded constants """
 DEVICE_ID, CLIENT_ID, CLIENT_SECRET = API_KEY()
@@ -119,8 +120,10 @@ def genPaperPrints():
             i = 0; j = 0; k += 1
             background.paste(img, (215 + i*(300+1448+30),147 + j*(250+913+26)))
             i += 1
+
+        os.remove(f"images/cards/card_{tmp}.png")
     # Save image regardless of how many cards on last page
-    background.save(f"images/pages/page_{k}.png")
+    background.save(f"images/pages/page_{k}.jpg", "JPEG")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def main():
     PullSpotifyData = False
