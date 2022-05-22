@@ -24,7 +24,7 @@ def parseRFID(id):
     """
     url = TrackData[str(id)]["url"]
     name = TrackData[str(id)]["name"]
-    type = TrackData[str(id)]["type"]
+    type = url.split(":")[1].lower()
 
     return url, name, type
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,9 +118,9 @@ while True:
             
             # Once the RFID card is read, parse the data for music selection
             if id: url, name, type = parseRFID(id)
-
+                
             # If track type is selected play the track
-            if type.lower() == "track":
+            if type == "track":
                 print(f"Playing {type}: {name}")
                 sp.start_playback(device_id=DEVICE_ID, uris=[url])
                 sleep(1)
@@ -128,7 +128,7 @@ while True:
                 printInfo(info)
 
             # With Playlist/Album type use context_uri and enable shuffle
-            elif type.lower() == "playlist" or type.lower() == "album":
+            elif type == "playlist" or type == "album":
                 print(f"Playing {type}: {name}")
                 sp.start_playback(device_id=DEVICE_ID, context_uri=url)
                 sp.shuffle(True, device_id=DEVICE_ID)

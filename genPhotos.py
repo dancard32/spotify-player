@@ -45,15 +45,15 @@ def genCardPhotos(PullSpotify):
         # If using Spotify default images
         if PullSpotify:
             # Determine the url for each type of music
-            if names["type"].lower() == "playlist":
+            if names["url"].split(":")[1].lower() == "playlist":
                 results = sp.playlist_cover_image(names["url"])
                 url = results[0]["url"]
 
-            elif names["type"].lower() == "album":
+            elif names["url"].split(":")[1].lower() == "album":
                 results = sp.album(names["url"])
                 url = results["images"][0]["url"]
 
-            elif names["type"].lower() == "track":
+            elif names["url"].split(":")[1].lower() == "track":
                 results = sp.track(names["url"])
                 url = results["album"]["images"][0]["url"]
 
