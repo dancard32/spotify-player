@@ -143,17 +143,14 @@ With everything up to this point being completed, the Raspberry Pi is ready to p
     "HASH ID #1 FROM RFID CARD":{
         "name":"Road Trips",
         "url":"spotify:playlist:1LxEqGRyNV5yB67e6mwGgH",
-        "type": "Playlist"
     },
     "HASH ID #2 FROM RFID CARD":{
         "name":"California 37",
         "url":"spotify:album:5zseibu9WEsPaZmkJUMkz1",
-        "type": "Album"
     },
     "HASH ID #3 FROM RFID CARD":{
         "name":"Beautiful Mistakes",
         "url":"spotify:track:5zFglKYiknIxks8geR8rcL",
-        "type": "Track"
     },
 }
 ```
