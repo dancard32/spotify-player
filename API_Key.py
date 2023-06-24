@@ -12,5 +12,6 @@ def API_KEY():
     DEVICE_ID = readtext("DEVICE_ID")
     CLIENT_ID = readtext("CLIENT_ID")
     CLIENT_SECRET = readtext("CLIENT_SECRET")
+    print(DEVICE_ID, type(DEVICE_ID))
 
     return DEVICE_ID, CLIENT_ID, CLIENT_SECRET
