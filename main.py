@@ -40,13 +40,13 @@ def printInfo(data):
 def pausePlayTrack(channel):
     """
     pausePlayTrack GPIO callback function to allow RPi to play or pause music
-    through spotify 
-    
+    through spotify
+
     Attributes:
         channel (BOARD): Inhereted from GPIO.setmode(GPIO.BOARD)
     """
     global PLAY_PAUSE   # global variable to allow several function callbacks
-    
+
     print("Play/Pause")
     if PLAY_PAUSE:
         sp.pause_playback(device_id=DEVICE_ID)
@@ -60,7 +60,7 @@ def pausePlayTrack(channel):
 def skipTrack(channel):
     """
     skipTrack GPIO callback function to allow RPi to skip current track
-    
+
     Attributes:
         channel (BOARD): Inhereted from GPIO.setmode(GPIO.BOARD)
     """
@@ -73,7 +73,7 @@ def skipTrack(channel):
 def backTrack(channel):
     """
     backTrack GPIO callback function to allow RPi to go to previous track
-    
+
     Attributes:
         channel (BOARD): Inhereted from GPIO.setmode(GPIO.BOARD)
     """
@@ -115,10 +115,10 @@ while True:
             id = reader.read()[0]
             print(f"Card Value is: {id}")
             sp.transfer_playback(device_id=DEVICE_ID, force_play=False)
-            
+
             # Once the RFID card is read, parse the data for music selection
             if id: url, name, type = parseRFID(id)
-                
+
             # If track type is selected play the track
             if type == "track":
                 print(f"Playing {type}: {name}")
@@ -136,12 +136,12 @@ while True:
                 sleep(1)
                 info = sp.currently_playing()
                 printInfo(info)
-                
+
     # Print the error and continue the loop
     except Exception as e:
         print(e)
         pass
-    
+
     # Cleanup the GPIO input for the next RFID card to be read
     finally:
         print("Cleaning up GPIO...")
