@@ -49,10 +49,10 @@ def pausePlayTrack(channel):
 
     print("Play/Pause")
     if PLAY_PAUSE:
-        sp.pause_playback(device_id=None)
+        sp.pause_playback(device_id=DEVICE_ID)
         PLAY_PAUSE = False
     else:
-        sp.start_playback(device_id=None)
+        sp.start_playback(device_id=DEVICE_ID)
         PLAY_PAUSE = True
         info = sp.currently_playing()
         printInfo(info)
@@ -66,7 +66,7 @@ def skipTrack(channel):
     """
 
     print("Skip track")
-    sp.next_track(device_id=None)
+    sp.next_track(device_id=DEVICE_ID)
     info = sp.currently_playing()
     printInfo(info)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -79,7 +79,7 @@ def backTrack(channel):
     """
 
     print("Previous track")
-    sp.previous_track(device_id=None)
+    sp.previous_track(device_id=DEVICE_ID)
     info = sp.currently_playing()
     printInfo(info)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -114,7 +114,7 @@ while True:
 
             id = reader.read()[0]
             print(f"Card Value is: {id}")
-            sp.transfer_playback(device_id=None, force_play=False)
+            sp.transfer_playback(device_id=DEVICE_ID, force_play=False)
 
             # Once the RFID card is read, parse the data for music selection
             if id: url, name, type = parseRFID(id)
@@ -122,7 +122,7 @@ while True:
             # If track type is selected play the track
             if type == "track":
                 print(f"Playing {type}: {name}")
-                sp.start_playback(device_id=None, uris=[url])
+                sp.start_playback(device_id=DEVICE_ID, uris=[url])
                 sleep(1)
                 info = sp.currently_playing()
                 printInfo(info)
@@ -130,8 +130,8 @@ while True:
             # With Playlist/Album type use context_uri and enable shuffle
             elif type == "playlist" or type == "album":
                 print(f"Playing {type}: {name}")
-                sp.start_playback(device_id=None, context_uri=url)
-                sp.shuffle(True, device_id=None)
+                sp.start_playback(device_id=DEVICE_ID, context_uri=url)
+                sp.shuffle(True, device_id=DEVICE_ID)
                 sp.next_track()
                 sleep(1)
                 info = sp.currently_playing()
